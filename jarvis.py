@@ -111,11 +111,16 @@ if __name__ == "__main__":
         elif 'logout' in query:
             os.system("shutdown -l")
             
-        elif 'shutdown' in query:
+        elif 'shutdown' in query: # warning save files before shutdown or else data will be lost as it will do force shutdown
             os.system("shutdown /s /t 1")
             
-        elif 'restart' in query:
+        elif 'restart' in query:  # warning save files before restart or else data will be lost as it will do force restart
             os.system("shutdown /r /t 1")
+            
+        elif 'play songs' in query:
+            songs_dir = 'D:\\Music'  # location of the songs directory
+            songs = os.listdir(songs_dir)
+            os.startfile(os.path.join(songs_dir, songs[0]))
 
         elif 'offline' in query:
             speak("Jarvis is going Offline...")
