@@ -2,7 +2,7 @@
 # (Help us to convert text to voice from our system assistant)
 import pyttsx3
 import datetime 
-
+import speech_recognition as sr # pip install SpeechRecognition
 engine = pyttsx3.init()
 
 def speak(audio):
@@ -38,4 +38,24 @@ def wishme():
         speak("Good Night Sir!")
     speak("Jarvis at your service sir...Please tell me how can I help you?")
 
-wishme()
+def takeCommand():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening...")
+        r.adjust_for_ambient_noise(source, duration=1)
+        r.pause_threshold = 1
+        audio = r.listen(source)
+
+    try:
+        print("Recognizing...")
+        query = r.recognize_google(audio, language='en-US')
+        print(query)
+
+    except Exception as e:
+        print(e)
+        speak("Say that again please...")
+        return "null"
+
+    return query
+
+takeCommand()
