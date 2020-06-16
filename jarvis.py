@@ -8,6 +8,7 @@ import smtplib
 import webbrowser as wb
 import os
 import pyautogui # pip install pyautogui
+import psutil # pip install psutil
 
 engine = pyttsx3.init()
 
@@ -33,6 +34,7 @@ def wishme():
     speak("Welcome back Sir!")
     time()
     date()
+    cpu()
     hour = datetime.datetime.now().hour
     if hour >= 6 and hour < 12:
         speak("Good Morning Sir!")
@@ -74,7 +76,14 @@ def sendEmail(to,content):
 
 def screenshot():
     img = pyautogui.screenshot()
-    img.save("E:\PC Intern\AI-JARVIS\ss.png")
+    img.save("E:\\PC Intern\\AI-JARVIS\\ss.png")
+
+def cpu():
+    usage = str(psutil.cpu_percent())
+    speak("CPU is at "+usage)
+    battery = psutil.sensors_battery()
+    speak("The battery percentage available is ")
+    speak(battery.percent)
 
 if __name__ == "__main__":
     wishme()
@@ -142,6 +151,9 @@ if __name__ == "__main__":
         elif 'screenshot' in query:
             screenshot()
             speak("Done!")
+
+        elif 'cpu' in query:
+            cpu()
 
         elif 'offline' in query:
             speak("Jarvis is going Offline...")
