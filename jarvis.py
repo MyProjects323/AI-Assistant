@@ -9,6 +9,7 @@ import webbrowser as wb
 import os
 import pyautogui # pip install pyautogui
 import psutil # pip install psutil
+import pyjokes # pip install pyjokes
 
 engine = pyttsx3.init()
 
@@ -85,6 +86,9 @@ def cpu():
     speak("The battery percentage available is ")
     speak(battery.percent)
 
+def jokes():
+    speak(pyjokes.get_joke())
+
 if __name__ == "__main__":
     wishme()
     while True:
@@ -154,6 +158,9 @@ if __name__ == "__main__":
 
         elif 'cpu' in query:
             cpu()
+
+        elif 'joke' in query:
+            jokes()
 
         elif 'offline' in query:
             speak("Jarvis is going Offline...")
