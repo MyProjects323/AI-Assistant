@@ -4,6 +4,7 @@ import pyttsx3
 import datetime 
 import speech_recognition as sr # pip install SpeechRecognition
 import wikipedia # pip install wikipedia
+import smtplib
 
 engine = pyttsx3.init()
 
@@ -60,6 +61,14 @@ def takeCommand():
 
     return query
 
+def sendEmail(to,content):
+    server = smtplib.SMTP("email", 587)
+    server.ehlo()
+    server.starttls()
+    server.login("email","password")
+    server.sendmail('email',to,content)
+    server.close()
+
 if __name__ == "__main__":
     wishme()
     while True:
@@ -77,7 +86,20 @@ if __name__ == "__main__":
             result = wikipedia.summary(query, sentences=2)
             print(result)
             speak(result)
-        
+
+        elif 'send mail'in query:
+            try:
+                speak("What should I say?")
+                content = takeCommand()
+                to = "reciept email"
+                sendEmail(to,content)
+                speak("Email has been sent")
+                speak("The message sent in email is :",content)
+
+            except Exception as e:
+                print(e)
+                speak("Unable to send the Email..")
+
         elif 'offline' in query:
             speak("Jarvis is going Offline...")
             quit()
