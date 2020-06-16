@@ -5,6 +5,7 @@ import datetime
 import speech_recognition as sr # pip install SpeechRecognition
 import wikipedia # pip install wikipedia
 import smtplib
+import webbrowser as wb
 
 engine = pyttsx3.init()
 
@@ -99,6 +100,13 @@ if __name__ == "__main__":
             except Exception as e:
                 print(e)
                 speak("Unable to send the Email..")
+
+        elif 'search in chrome' in query:
+            speak("What should I search?")
+            chromepath = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+            search = takeCommand().lower()
+            wb.get(chromepath).open_new_tab(search+'.com')
+            
 
         elif 'offline' in query:
             speak("Jarvis is going Offline...")
