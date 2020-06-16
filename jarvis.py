@@ -7,6 +7,7 @@ import wikipedia # pip install wikipedia
 import smtplib
 import webbrowser as wb
 import os
+import pyautogui # pip install pyautogui
 
 engine = pyttsx3.init()
 
@@ -53,7 +54,7 @@ def takeCommand():
 
     try:
         print("Recognizing...")
-        query = r.recognize_google(audio, language='en-US')
+        query = r.recognize_google(audio, language='en-in')
         print(query)
 
     except Exception as e:
@@ -70,6 +71,10 @@ def sendEmail(to,content):
     server.login("email","password")
     server.sendmail('email',to,content)
     server.close()
+
+def screenshot():
+    img = pyautogui.screenshot()
+    img.save("E:\PC Intern\AI-JARVIS\ss.png")
 
 if __name__ == "__main__":
     wishme()
@@ -134,10 +139,10 @@ if __name__ == "__main__":
             remember = open('data.txt', 'r')
             speak("You said me to remember that"+remember.read())
 
+        elif 'screenshot' in query:
+            screenshot()
+            speak("Done!")
+
         elif 'offline' in query:
             speak("Jarvis is going Offline...")
             quit()
-
-
-        
-        
