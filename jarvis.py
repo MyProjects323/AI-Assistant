@@ -3,6 +3,8 @@
 import pyttsx3
 import datetime 
 import speech_recognition as sr # pip install SpeechRecognition
+import wikipedia # pip install wikipedia
+
 engine = pyttsx3.init()
 
 def speak(audio):
@@ -68,10 +70,18 @@ if __name__ == "__main__":
         
         elif 'date' in query:
             date()
+
+        elif 'wikipedia' in query:
+            speak("Searching...")
+            query = query.replace("wikipedia","")
+            result = wikipedia.summary(query, sentences=2)
+            print(result)
+            speak(result)
         
         elif 'offline' in query:
             speak("Jarvis is going Offline...")
             quit()
+
 
         
         
