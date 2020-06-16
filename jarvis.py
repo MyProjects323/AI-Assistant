@@ -3,6 +3,9 @@
 import pyttsx3
 
 engine = pyttsx3.init()
-engine.say("Hello World!")
-engine.say("This is JARVIS")
-engine.runAndWait()
+
+def speak(audio):
+    engine.say(audio)
+    engine.runAndWait()
+
+speak("This is JARVIS AI Assistant")
